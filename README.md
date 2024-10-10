@@ -27,12 +27,13 @@
 โดยในการหา EndEffector Jacobian นั้นมาจากสมการ \
 *Joint ทำการหมทุนรอบแกน z
 
-$$ J_e(q)_{6\times3} = 
-    \begin{pmatrix}
+```math
+J_e(q)_{6\times3} = 
+    \begin{bmatrix}
         Jv_e(q)_{3\times3} \\
         Jw_e(q)_{3\times3}
-    \end{pmatrix}
-$$
+    \end{bmatrix}
+```
 
 โดย
 
