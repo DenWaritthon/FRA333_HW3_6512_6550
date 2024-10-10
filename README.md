@@ -37,7 +37,8 @@ J_e(q)_{6\times3} =
 
 โดย
 
-$$ Jv_e(q)_{3\times3} = 
+```math
+Jv_e(q)_{3\times3} = 
     \begin{bmatrix}
 
         R^0_1
@@ -68,11 +69,12 @@ $$ Jv_e(q)_{3\times3} =
         (P^0_e - P^0_3)
 
     \end{bmatrix}
-$$
+```
 
 และ
 
-$$ Jw_e(q)_{3\times3} = 
+```math
+Jw_e(q)_{3\times3} = 
     \begin{bmatrix}
 
         R^0_1
@@ -97,11 +99,13 @@ $$ Jw_e(q)_{3\times3} =
         \end{bmatrix}
 
     \end{bmatrix}
-$$
+```
 
 **เนื่องจากแขนกลมีแค่ 3 DoF ทำให้สามารถควบคุมได้แค่ linear velocity เท่านั้นทำให้สามารถลดรูปของ  Jacobian ได้เป็น**
 
-$$ J_{reduce}(q)_{3\times3} = Jv(q)_{3\times3} $$
+```math
+J_{reduce}(q)_{3\times3} = Jv(q)_{3\times3}
+```
 
 
 ## checkSingularityHW3
@@ -115,14 +119,20 @@ $$ J_{reduce}(q)_{3\times3} = Jv(q)_{3\times3} $$
 โดยในเช็คว่าเกิด Singularity ไหมนั้นมีการใช้ค่า Manipulability(m) ของแขนกลในการนำมาเปรียบเทียบกับค่า $\varepsilon$ ที่กำหนด
 
 โดย
-$$ \varepsilon = 0.0001 $$
+```math
+\varepsilon = 0.0001
+```
 
 และ
-$$ m = \det(J_{reduce}) $$
+```math
+m = \det(J_{reduce})
+```
 
 ซึ่งแขนกลจะอยู่ใกล้สภาวะ Singularity ก็ต่อเมื่อ
 
-$$ m < \varepsilon $$
+```math
+m < \varepsilon
+```
 
 
 ## computeEffortHW3
@@ -133,19 +143,25 @@ $$ m < \varepsilon $$
 - Output : $\tau^{3x1}$ ซี่งเป็น Effort ของแต่ละ Joint
 
 โดย Wrench คือ
-$$
+
+```math
 W_{6\times1} = 
     \begin{bmatrix}
         moment(n^e)_{3\times1} \\
         force(f^e)_{3\times1} \\
     \end{bmatrix}
-$$
+```
+
 **เนื่องจากแขนกลมีแค่ 3 DoF ทำให้สามารถควบคุมได้แค่ force เท่านั้นทำให้สามารถลดรูปของ wrench ได้เป็น**
 
-$$ W_{3\times1} = force(f^e)_{3\times1} $$
+```math
+W_{3\times1} = force(f^e)_{3\times1}
+```
 
 โดยในการหา Effort ของแต่ละ Joint นั้นมาจากสมการ
-$$ \tau_{3x1} = J_{reduce}^T(q)W $$
+```math
+\tau_{3x1} = J_{reduce}^T(q)W
+```
 
 # Demo
 
