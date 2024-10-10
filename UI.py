@@ -1,6 +1,6 @@
 import pygame
 import numpy as np
-from FRA333_HW3_6512_6550 import endEffectorJacobianHW3, checkSingularityHW3, computeEffortHW3
+from FRA333_HW3_6512_6550 import *
 
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
