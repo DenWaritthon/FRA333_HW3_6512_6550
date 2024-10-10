@@ -28,10 +28,10 @@
 *Joint ทำการหมทุนรอบแกน z
 
 $$ J_e(q)_{6\times3} = 
-    \begin{bmatrix}
+    \begin{pmatrix}
         Jv_e(q)_{3\times3} \\
         Jw_e(q)_{3\times3}
-    \end{bmatrix}
+    \end{pmatrix}
 $$
 
 โดย
