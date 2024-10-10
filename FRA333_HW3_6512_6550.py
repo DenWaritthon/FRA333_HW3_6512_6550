@@ -87,6 +87,6 @@ def computeEffortHW3(q:list[float], w:list[float])->list[float]:
     w_f = w[3:, :]
 
     # Calculate effort from joint
-    tau = np.dot(J_reduce,w_f)
+    tau = np.dot(np.transpose(J_reduce),w_f)
     return tau
 #==============================================================================================================#
