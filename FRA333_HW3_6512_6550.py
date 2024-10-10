@@ -84,7 +84,7 @@ def computeEffortHW3(q:list[float], w:list[float])->list[float]:
 
     # Reduce Wrench for Linear Fort
     w = np.array(w).reshape(6,1)
-    w_f = w[:3, :]
+    w_f = w[3:, :]
 
     # Calculate effort from joint
     tau = np.dot(J_reduce,w_f)
