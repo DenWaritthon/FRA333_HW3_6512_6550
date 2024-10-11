@@ -1,11 +1,17 @@
+#import
+
 import pygame
 import numpy as np
 from FRA333_HW3_6512_6550 import *
+
+
+# init
 
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 pygame.display.set_caption('Robotic Arm Control')
 
+# color var
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
@@ -14,11 +20,15 @@ GREEN = (0, 255, 0)
 GRAY = (200, 200, 200)
 DIVIDER_COLOR = (150, 150, 150)
 
+
+# slider var
 SLIDER_WIDTH = 300
 SLIDER_HEIGHT = 20
 
+# symbol var
 PI_SYMBOL = '\u03C0'  # Unicode for the pi symbol
 
+# button class
 class Button:
     def __init__(self, x, y, width, height, text, color=BLUE):
         self.rect = pygame.Rect(x, y, width, height)
@@ -34,6 +44,8 @@ class Button:
     def is_clicked(self, pos):
         return self.rect.collidepoint(pos)
 
+# slider class
+
 class Slider:
     def __init__(self, x, y, min_value, max_value):
         self.rect = pygame.Rect(x, y, SLIDER_WIDTH, SLIDER_HEIGHT)
@@ -47,7 +59,6 @@ class Slider:
         handle_x = int(self.rect.x + (self.value - self.min_value) / (self.max_value - self.min_value) * SLIDER_WIDTH)
         pygame.draw.rect(screen, RED, (handle_x - 10, self.rect.y - 5, 20, SLIDER_HEIGHT + 10))
         
-        # Add -π and π symbols instead of -3.14 and 3.14
         font = pygame.font.SysFont(None, 24)
         min_label = font.render(f'-{PI_SYMBOL}', True, BLACK)
         max_label = font.render(f'{PI_SYMBOL}', True, BLACK)
@@ -63,20 +74,21 @@ class Slider:
         elif event.type == pygame.MOUSEMOTION and self.dragging:
             relative_x = event.pos[0] - self.rect.x
             self.value = self.min_value + (relative_x / SLIDER_WIDTH) * (self.max_value - self.min_value)
-            self.value = max(self.min_value, min(self.value, self.max_value))  # Keep value in range
+            self.value = max(self.min_value, min(self.value, self.max_value)) 
+
+# textinput class
 
 class TextInput:
     def __init__(self, x, y, width, height):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = ''
         self.color = GRAY
-        self.active_color = (0, 150, 255)  # Highlight color when active
-        self.inactive_color = GRAY  # Default border color when inactive
+        self.active_color = (0, 150, 255)  
+        self.inactive_color = GRAY  
         self.active = False
-        self.cursor_visible = True  # Cursor visibility for blinking
-        self.cursor_timer = 0  # Timer to control cursor blink rate
-        self.cursor_position = len(self.text)  # Cursor position in the text
-
+        self.cursor_visible = True  
+        self.cursor_timer = 0 
+        self.cursor_position = len(self.text)  
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # Check if the text box is clicked
@@ -96,12 +108,11 @@ class TextInput:
     def update_cursor(self):
         """ Update cursor blink based on a timer. """
         self.cursor_timer += 1
-        if self.cursor_timer >= 30:  # Adjust this value to control blink speed
+        if self.cursor_timer >= 30: 
             self.cursor_visible = not self.cursor_visible
             self.cursor_timer = 0
 
     def draw(self, screen):
-        # Choose color based on whether the text box is active
         current_color = self.active_color if self.active else self.inactive_color
         pygame.draw.rect(screen, current_color, self.rect, 2)
 
@@ -111,30 +122,28 @@ class TextInput:
 
         # Draw the cursor if active and blinking
         if self.active and self.cursor_visible:
-            cursor_x = self.rect.x + 5 + font.size(self.text)[0]  # Position cursor after the text
+            cursor_x = self.rect.x + 5 + font.size(self.text)[0]  
             pygame.draw.line(screen, BLACK, (cursor_x, self.rect.y + 5), (cursor_x, self.rect.y + 25), 2)
 
         # Update cursor blink
         self.update_cursor()
 
+# slide and text class        
+
 class SliderWithTextInput:
     def __init__(self, x, y, min_value, max_value):
-        self.slider = Slider(x, y + 50, min_value, max_value)  # Move slider down so text box is above
-        self.text_input = TextInput(x, y, 100, 30)  # Positioned above the slider
-        self.update_text_from_slider()  # Initialize text to match the slider value
+        self.slider = Slider(x, y + 50, min_value, max_value) 
+        self.text_input = TextInput(x, y, 100, 30) 
+        self.update_text_from_slider() 
 
     def update_text_from_slider(self):
-        """Update the text input to reflect the slider's value."""
         self.text_input.text = f'{self.slider.value:.2f}'
 
     def update_slider_from_text(self):
-        """Update the slider's value to reflect the text input (if valid)."""
         try:
             value = float(self.text_input.text)
-            # Ensure the value is within the slider's range
             self.slider.value = max(self.slider.min_value, min(value, self.slider.max_value))
         except ValueError:
-            # Ignore invalid text input (e.g., empty or non-numeric input)
             pass
 
     def handle_event(self, event):
@@ -164,18 +173,21 @@ def draw_matrix(screen, matrix, x, y, title):
         row_text = font.render(' '.join(f'{val:.2f}' for val in row), True, BLACK)
         screen.blit(row_text, (x, y + i * 40))
 
-# Sample buttons
+# Action buttons
 buttons = [
     Button(500, 300, 200, 50, "Find Jacobian"),
     Button(500, 400, 200, 50, "Check Singularity"),
     Button(500, 500, 200, 50, "Compute Effort")
 ]
 
+# init var matrix
+
 jacobian = np.zeros((6, 3))  
 jacobian_reduced = np.zeros((3, 3))  
 singularity = False
 efforts = np.zeros((3, 1))
 
+# Link fuction 2 ui
 def update_output_jacobian(q):
     global jacobian, jacobian_reduced
     jacobian = endEffectorJacobianHW3(q)
@@ -205,16 +217,19 @@ inputs = [
 ]
 
 running = True
+
+# run
 while running:
     screen.fill(WHITE)
     
     font = pygame.font.SysFont(None, 36)
     
+    # keep q
     q = [slider_with_input.slider.value for slider_with_input in sliders_with_input]
     
+    #keep wench
     w = [float(input.text) if input.text else 0.0 for input in inputs]
 
-    # Draw sliders and their inputs
     for slider_with_input in sliders_with_input:
         slider_with_input.draw(screen)
 
@@ -253,7 +268,7 @@ while running:
     draw_matrix(screen, jacobian, 1000, 130, 'Jacobian (6x3):')
     draw_matrix(screen, jacobian_reduced, 1000, 410, 'Jacobian Reduced (3x3):')
 
-    # Draw singularity status (green for True, red for False)
+    # Draw singularity status (RED for True, GREEN for False)
     singularity_label = font.render(
         f'Singularity: {singularity}', 
         True, RED if singularity else GREEN
@@ -266,7 +281,7 @@ while running:
         effort_label = font.render(label, True, BLACK)
         screen.blit(effort_label, (1000, 700 + i * 40))
 
-    # Event handling
+    # Event handling ( processing slow )
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
