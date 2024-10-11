@@ -163,9 +163,9 @@ W_{3\times1} = force(f^e)_{3\times1}
 \tau_{3x1} = J_{reduce}^T(q)W
 ```
 
-# Demo
-
 # How to use
+
+# Demo
 
 # Referent
 

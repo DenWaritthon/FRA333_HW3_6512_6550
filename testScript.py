@@ -12,9 +12,9 @@ from FRA333_HW3_6512_6550 import endEffectorJacobianHW3 ,checkSingularityHW3 ,co
 # Set up Input Variable
 
 # Define joint angle ranges for q1 - q3
-theta1_range = np.linspace(-np.pi ,np.pi ,10)  # Joint 1
-theta2_range = np.linspace(-np.pi ,np.pi ,10)  # Joint 2
-theta3_range = np.linspace(-np.pi ,np.pi ,10)  # Joint 3
+theta1_range = np.linspace(-np.pi ,np.pi ,25)  # Joint 1
+theta2_range = np.linspace(-np.pi ,np.pi ,25)  # Joint 2
+theta3_range = np.linspace(-np.pi ,np.pi ,25)  # Joint 3
 
 #===========================================<ตรวจคำตอบ>====================================================#
 
