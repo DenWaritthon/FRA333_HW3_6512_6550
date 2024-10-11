@@ -220,6 +220,8 @@ UI_testScript.py
 
 ## Demo testScript.py
 
+![Demo_testScript](picture/Demo_testScript.png)
+
 ## Demo UI_testScript.py
 
 ![VDO_UI_testScript](picture/VDO_UI_testScript.gif)
