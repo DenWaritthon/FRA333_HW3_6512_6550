@@ -165,7 +165,54 @@ W_{3\times1} = force(f^e)_{3\times1}
 
 # How to use
 
+ทำ download github นี้ brand main 
+
+```
+git clone https://github.com/DenWaritthon/FRA333_HW3_6512_6550.git
+```
+
+## Use testScript.py
+
+ทำการ Run file ชื่อ
+
+```
+testScript.py
+```
+
+หลังจาก run เสร็จจะพบกับผลการคำนวณตาม function ทั้งหมดบน terminall 
+
+## Use UI_testScript.py
+
+ทำการ Run file ชื่อ
+
+```
+UI_testScript.py
+```
+
+เมื่อทำการ run จะมีหน้าต่าง UI สำหรับทดสอบการทำงานของ function ปรากฏขึ้น
+
+**หน้าต่าง**
+
+การใช้งานหน้าต่าง UI 
+
+- สามารถกำหนดค่า Joint Configuration ได้โดยการกรอกค่าลงใน text box และใช้ slide bar ในการเลือกค่าที่ต้องการ
+  
+- สามารถกำหนดค่า Wrench ที่มากระทำกับจุดกึ่งกลางของเฟรม $F_e$ ได้โดยการกรอกค่าลงใน text box
+
+- เรียกใช้งาน function โดยเลือกจาก button
+  - Find Jacobian สำหรับเรียกใช้ function : endEffectorJacobianHW3
+  - Check Singularity สำหรับเรียกใช้ function : checkSingularityHW3
+  - Compute Effort สำหรับเรียกใช้ function : computeEffortHW3
+
+  เมื่อทำการเรียกช้งาน function จะแสดงผลในหน้าจอฝั่ง Output
+
+- สามารถปิดหน้าต่าง UI ได้โดยการกดปุ่ม **'q'** บน keyboard
+
 # Demo
+
+## Demo testScript.py
+
+## Demo UI_testScript.py
 
 # Referent
 
@@ -175,3 +222,7 @@ W_{3\times1} = force(f^e)_{3\times1}
 
 ![เมตริกซ์จาโคเบียนของแขนกล](picture/ManipulatorJacobian_ofFrame_i_equation.png)
 *ภาพประกอบการอธิบายสมการ Jacobian of frame i
+
+
+Chayanat Lertwittayanuruk\
+Waritthon Kongnoo
