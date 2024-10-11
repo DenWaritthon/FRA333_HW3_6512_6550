@@ -1,15 +1,17 @@
+#import
+
 import pygame
 import numpy as np
 from FRA333_HW3_6512_6550 import *
 
-## import
+
+# init
 
 pygame.init()
 screen = pygame.display.set_mode((1920, 1080))
 pygame.display.set_caption('Robotic Arm Control')
 
-## set up pygame window
-
+# color var
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
@@ -18,20 +20,15 @@ GREEN = (0, 255, 0)
 GRAY = (200, 200, 200)
 DIVIDER_COLOR = (150, 150, 150)
 
-## setup colour
 
+# slider var
 SLIDER_WIDTH = 300
 SLIDER_HEIGHT = 20
 
-## set w h
-
+# symbol var
 PI_SYMBOL = '\u03C0'  # Unicode for the pi symbol
 
-## set symbol
-
-
-# Button class
-
+# button class
 class Button:
     def __init__(self, x, y, width, height, text, color=BLUE):
         self.rect = pygame.Rect(x, y, width, height)
@@ -46,9 +43,8 @@ class Button:
 
     def is_clicked(self, pos):
         return self.rect.collidepoint(pos)
-    
 
-# Slider class
+# slider class
 
 class Slider:
     def __init__(self, x, y, min_value, max_value):
@@ -80,21 +76,22 @@ class Slider:
             self.value = self.min_value + (relative_x / SLIDER_WIDTH) * (self.max_value - self.min_value)
             self.value = max(self.min_value, min(self.value, self.max_value)) 
 
-# Text Input class
+# textinput class
+
 class TextInput:
     def __init__(self, x, y, width, height):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = ''
         self.color = GRAY
         self.active_color = (0, 150, 255)  
-        self.inactive_color = GRAY 
+        self.inactive_color = GRAY  
         self.active = False
-        self.cursor_visible = True 
+        self.cursor_visible = True  
         self.cursor_timer = 0 
-        self.cursor_position = len(self.text) 
-
+        self.cursor_position = len(self.text)  
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
+            # Check if the text box is clicked
             if self.rect.collidepoint(event.pos):
                 self.active = True
             else:
@@ -123,23 +120,26 @@ class TextInput:
         text_img = font.render(self.text, True, BLACK)
         screen.blit(text_img, (self.rect.x + 5, self.rect.y + 5))
 
+        # Draw the cursor if active and blinking
         if self.active and self.cursor_visible:
-            cursor_x = self.rect.x + 5 + font.size(self.text)[0] 
+            cursor_x = self.rect.x + 5 + font.size(self.text)[0]  
             pygame.draw.line(screen, BLACK, (cursor_x, self.rect.y + 5), (cursor_x, self.rect.y + 25), 2)
 
+        # Update cursor blink
         self.update_cursor()
+
+# slide and text class        
 
 class SliderWithTextInput:
     def __init__(self, x, y, min_value, max_value):
-        self.slider = Slider(x, y + 50, min_value, max_value)  
-        self.text_input = TextInput(x, y, 100, 30)  
+        self.slider = Slider(x, y + 50, min_value, max_value) 
+        self.text_input = TextInput(x, y, 100, 30) 
         self.update_text_from_slider() 
+
     def update_text_from_slider(self):
-        """Update the text input to reflect the slider's value."""
         self.text_input.text = f'{self.slider.value:.2f}'
 
     def update_slider_from_text(self):
-        """Update the slider's value to reflect the text input (if valid)."""
         try:
             value = float(self.text_input.text)
             self.slider.value = max(self.slider.min_value, min(value, self.slider.max_value))
@@ -151,9 +151,11 @@ class SliderWithTextInput:
         self.slider.handle_event(event)
         self.text_input.handle_event(event)
         
+        # Sync the text input if the slider was dragged
         if self.slider.dragging:
             self.update_text_from_slider()
 
+        # Sync the slider if the text input was edited
         if event.type == pygame.KEYDOWN and self.text_input.active:
             self.update_slider_from_text()
 
@@ -171,21 +173,21 @@ def draw_matrix(screen, matrix, x, y, title):
         row_text = font.render(' '.join(f'{val:.2f}' for val in row), True, BLACK)
         screen.blit(row_text, (x, y + i * 40))
 
-# Action Button
+# Action buttons
 buttons = [
-    Button(500, 300, 250, 50, "Find Jacobian"),
-    Button(500, 400, 250, 50, "Check Singularity"),
-    Button(500, 500, 250, 50, "Compute Effort")
+    Button(500, 300, 200, 50, "Find Jacobian"),
+    Button(500, 400, 200, 50, "Check Singularity"),
+    Button(500, 500, 200, 50, "Compute Effort")
 ]
 
-# init value
+# init var matrix
 
 jacobian = np.zeros((6, 3))  
 jacobian_reduced = np.zeros((3, 3))  
 singularity = False
 efforts = np.zeros((3, 1))
 
-# use function
+# Link fuction 2 ui
 def update_output_jacobian(q):
     global jacobian, jacobian_reduced
     jacobian = endEffectorJacobianHW3(q)
@@ -206,12 +208,12 @@ sliders_with_input = [
 ]
 
 inputs = [
-    TextInput(100, 500, 150, 30), 
-    TextInput(100, 600, 150, 30), 
-    TextInput(100, 700, 150, 30), 
-    TextInput(310, 500, 150, 30), 
-    TextInput(310, 600, 150, 30),  
-    TextInput(310, 700, 150, 30) 
+    TextInput(100, 500, 150, 60), 
+    TextInput(100, 600, 150, 60),
+    TextInput(100, 700, 150, 60), 
+    TextInput(310, 500, 150, 60), 
+    TextInput(310, 600, 150, 60),  
+    TextInput(310, 700, 150, 60) 
 ]
 
 running = True
@@ -220,47 +222,41 @@ running = True
 while running:
     screen.fill(WHITE)
     
-    # font init
     font = pygame.font.SysFont(None, 36)
     
     # keep q
     q = [slider_with_input.slider.value for slider_with_input in sliders_with_input]
-
+    
     #keep wench
     w = [float(input.text) if input.text else 0.0 for input in inputs]
 
-    # use slider
     for slider_with_input in sliders_with_input:
         slider_with_input.draw(screen)
 
-    # Draw title Moment
+    # Draw wrench inputs with labels
     moment_title = font.render('Moment', True, BLACK)
     screen.blit(moment_title, (100, 450))
     
-    #Draw title Force
     force_title = font.render('Force', True, BLACK)
     screen.blit(force_title, (310, 450))
 
-    # Draw Wench
     wrench_labels = ['Mx:', 'My:', 'Mz:', 'Fx:', 'Fy:', 'Fz:']
     for i, text_input in enumerate(inputs):
         text_input.draw(screen)
         label = font.render(wrench_labels[i], True, BLACK)
         screen.blit(label, (text_input.rect.x - 50, text_input.rect.y + 5))
 
+    # Draw buttons
     for button in buttons:
         button.draw(screen)
 
-
-    #Draw line
+    # Draw output divider lines
     pygame.draw.line(screen, DIVIDER_COLOR, (960, 50), (960, 1080), 3)
     pygame.draw.line(screen, DIVIDER_COLOR, (960, 75), (1920, 75), 3)
     pygame.draw.line(screen, DIVIDER_COLOR, (960, 550), (1920, 550), 3)
     pygame.draw.line(screen, DIVIDER_COLOR, (960, 675), (1920, 675), 3)
     pygame.draw.line(screen, DIVIDER_COLOR, (960, 850), (1920, 850), 3)
 
-
-    # Input title
     input_title = font.render('Input', True, BLACK)
     screen.blit(input_title, (100, 20))  
 
@@ -272,10 +268,10 @@ while running:
     draw_matrix(screen, jacobian, 1000, 130, 'Jacobian (6x3):')
     draw_matrix(screen, jacobian_reduced, 1000, 410, 'Jacobian Reduced (3x3):')
 
-    # Draw singularity status (green for True, red for False)
+    # Draw singularity status (RED for True, GREEN for False)
     singularity_label = font.render(
         f'Singularity: {singularity}', 
-        True, GREEN if singularity else RED
+        True, RED if singularity else GREEN
     )
     screen.blit(singularity_label, (1000, 600))
 
@@ -285,10 +281,14 @@ while running:
         effort_label = font.render(label, True, BLACK)
         screen.blit(effort_label, (1000, 700 + i * 40))
 
-    # Event handling
+    # Event handling ( processing slow )
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                running = False
 
         for slider_with_input in sliders_with_input:
             slider_with_input.handle_event(event)
