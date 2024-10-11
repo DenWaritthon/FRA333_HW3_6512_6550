@@ -132,8 +132,8 @@ class TextInput:
 
 class SliderWithTextInput:
     def __init__(self, x, y, min_value, max_value):
-        self.slider = Slider(x, y + 50, min_value, max_value)  
-        self.text_input = TextInput(x, y, 100, 30)  
+        self.slider = Slider(x, y + 50, min_value, max_value) 
+        self.text_input = TextInput(x+50, y, 100, 30) 
         self.update_text_from_slider() 
 
     def update_text_from_slider(self):
@@ -233,15 +233,29 @@ while running:
 
     for slider_with_input in sliders_with_input:
         slider_with_input.draw(screen)
+    
+    q1_title = font.render('q1', True, BLACK)
+    screen.blit(q1_title, (150, 100))
 
-    # Draw title Moment
+    q2_title = font.render('q2', True, BLACK)
+    screen.blit(q2_title, (150, 200))
+
+    q3_title = font.render('q3', True, BLACK)
+    screen.blit(q3_title, (150, 300))
+
+    # Draw wrench inputs with labels
     moment_title = font.render('Moment', True, BLACK)
     screen.blit(moment_title, (100, 450))
     
     force_title = font.render('Force', True, BLACK)
     screen.blit(force_title, (310, 450))
 
-    # Draw Wench
+    name_ling_1_title = font.render('CHAYANAT LERTWITTAYANURUK 6512', True, BLACK)
+    screen.blit(name_ling_1_title, (1000, 900))
+
+    name_ling_2_title = font.render('WARITTHON KONGNOO 6550', True, BLACK)
+    screen.blit(name_ling_2_title, (1000, 950))
+
     wrench_labels = ['Mx:', 'My:', 'Mz:', 'Fx:', 'Fy:', 'Fz:']
     for i, text_input in enumerate(inputs):
         text_input.draw(screen)
