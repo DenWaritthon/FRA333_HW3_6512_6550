@@ -191,20 +191,28 @@ UI_testScript.py
 
 เมื่อทำการ run จะมีหน้าต่าง UI สำหรับทดสอบการทำงานของ function ปรากฏขึ้น
 
-**หน้าต่าง**
+![UI_testScript](picture/UI_testScript.png)
 
 การใช้งานหน้าต่าง UI 
 
-- สามารถกำหนดค่า Joint Configuration ได้โดยการกรอกค่าลงใน text box และใช้ slide bar ในการเลือกค่าที่ต้องการ
+- สามารถกำหนดค่า Joint Configuration ได้โดยการกรอกค่าลงใน text box และใช้ slide bar ในการเลือกค่าที่ต้องการ โดยค่าจะอยู่ในช่วง $[-\pi , \pi]$
+
+![set_q](picture/set_q.png)
   
 - สามารถกำหนดค่า Wrench ที่มากระทำกับจุดกึ่งกลางของเฟรม $F_e$ ได้โดยการกรอกค่าลงใน text box
+
+![set_wrench](picture/set_wrench.png)
 
 - เรียกใช้งาน function โดยเลือกจาก button
   - Find Jacobian สำหรับเรียกใช้ function : endEffectorJacobianHW3
   - Check Singularity สำหรับเรียกใช้ function : checkSingularityHW3
   - Compute Effort สำหรับเรียกใช้ function : computeEffortHW3
+  
+![call_function](picture/call_function.png)
 
-  เมื่อทำการเรียกช้งาน function จะแสดงผลในหน้าจอฝั่ง Output
+**เมื่อทำการเรียกใช้งาน function จะแสดงผลในหน้าจอฝั่ง Output**
+
+![output](picture/output.png)
 
 - สามารถปิดหน้าต่าง UI ได้โดยการกดปุ่ม **'q'** บน keyboard
 
