@@ -220,7 +220,11 @@ UI_testScript.py
 
 ## Demo testScript.py
 
+<video controls src="picture/VDO_testScript.mp4" title="VDO_testScript"></video>
+
 ## Demo UI_testScript.py
+
+<video controls src="picture/VDO_UI_testScript.mp4" title="VDO_UI_testScript"></video>
 
 # Referent
 
