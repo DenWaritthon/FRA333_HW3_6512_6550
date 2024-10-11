@@ -250,10 +250,10 @@ while running:
     force_title = font.render('Force', True, BLACK)
     screen.blit(force_title, (310, 450))
 
-    name_ling_1_title = font.render('CHAYANAT LERTWITTAYANURUK 6512', True, BLACK)
+    name_ling_1_title = font.render('CHAYANAT LERTWITTAYANURUK', True, BLACK)
     screen.blit(name_ling_1_title, (1000, 900))
 
-    name_ling_2_title = font.render('WARITTHON KONGNOO 6550', True, BLACK)
+    name_ling_2_title = font.render('WARITTHON KONGNOO', True, BLACK)
     screen.blit(name_ling_2_title, (1000, 950))
 
     wrench_labels = ['Mx:', 'My:', 'Mz:', 'Fx:', 'Fy:', 'Fz:']
