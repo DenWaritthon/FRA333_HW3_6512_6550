@@ -220,11 +220,7 @@ UI_testScript.py
 
 ## Demo testScript.py
 
-https://github.com/DenWaritthon/FRA333_HW3_6512_6550/blob/main/picture/VDO_testScript.mp4
-
 ## Demo UI_testScript.py
-
-<video controls src="picture/VDO_UI_testScript.mp4" title="VDO_UI_testScript"></video>
 
 # Referent
 
