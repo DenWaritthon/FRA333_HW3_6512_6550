@@ -175,9 +175,9 @@ def draw_matrix(screen, matrix, x, y, title):
 
 # Action buttons
 buttons = [
-    Button(500, 300, 200, 50, "Find Jacobian"),
-    Button(500, 400, 200, 50, "Check Singularity"),
-    Button(500, 500, 200, 50, "Compute Effort")
+    Button(500, 300, 250, 50, "Find Jacobian"),
+    Button(500, 400, 250, 50, "Check Singularity"),
+    Button(500, 500, 250, 50, "Compute Effort")
 ]
 
 # init var matrix
