@@ -170,4 +170,8 @@ W_{3\times1} = force(f^e)_{3\times1}
 # Referent
 
 - [The Ultimate Guide to Jacobian Matrices for Robotics](https://automaticaddison.com/the-ultimate-guide-to-jacobian-matrices-for-robotics/)
+- [พื้นฐานวิทยาการหุ่นยนต์ : เมตริกซ์จาโคเบียนของแขนกล](https://www.youtube.com/watch?v=exG5zOAm7pA&list=PLHnZZE5j6C65J4-1t-azzmceXevAtWbRf&index=11)
 
+
+![เมตริกซ์จาโคเบียนของแขนกล](picture/ManipulatorJacobian_ofFrame_i_equation.png)
+*ภาพประกอบการอธิบายสมการ Jacobian of frame i
