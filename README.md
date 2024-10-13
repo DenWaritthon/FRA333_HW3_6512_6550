@@ -22,7 +22,7 @@
 
 ในการหา EndEffector Jacobian นั้นมีการกำหนด
 - Input : q[3] ซึ่งเป็น array ของ Joint Configuration ที่กำหนด
-- Output : $J^{6x6}$ ซี่งเป็น EndEffector Jacobian
+- Output : $J^{6\times3}$ ซี่งเป็น EndEffector Jacobian
 
 โดยในการหา EndEffector Jacobian นั้นมาจากสมการ \
 *Joint ทำการหมทุนรอบแกน z
@@ -140,7 +140,7 @@ m < \varepsilon
 ในการหา Effort ของแต่ละ Joint นั้นมีการกำหนด
 - Input : q[3] ซึ่งเป็น array ของ Joint Configuration ที่กำหนด
 - Input : w[6] ซึ่งเป็น array ของ Wrench ที่มากระทำกับจุดกึ่งกลางของเฟรม $F_e$ ที่กำหนด
-- Output : $\tau^{3x1}$ ซี่งเป็น Effort ของแต่ละ Joint
+- Output : $\tau^{3\times1}$ ซี่งเป็น Effort ของแต่ละ Joint
 
 โดย Wrench คือ
 
